@@ -27,9 +27,9 @@ ActiveRecord::Schema.define(version: 2020_01_04_183229) do
   end
 
   create_table "organizes", force: :cascade do |t|
-    t.integer "trip_id"
-    t.integer "company_id"
-    t.string "type"
+    t.integer "trip_id", null: false
+    t.integer "company_id", null: false
+    t.string "level"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_organizes_on_company_id"

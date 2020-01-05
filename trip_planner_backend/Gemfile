@@ -31,6 +31,9 @@ gem 'rack-cors'
 # set up JWT
 gem 'devise-jwt'
 gem 'dotenv-rails', groups: [:development, :test]
+gem 'rspec-rails', groups: [:development, :test]
+gem 'fabrication', groups: [:development, :test]
+gem 'faker', groups: [:development, :test]
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

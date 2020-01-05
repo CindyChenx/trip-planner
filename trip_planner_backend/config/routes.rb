@@ -1,7 +1,14 @@
 Rails.application.routes.draw do
-  resources :organizes
-  resources :trips
-  resources :companies
+
+  # resources :organizes
+
+  resources :trips do
+    resources :organizes
+  end
+
+  resources :companies do
+    resources :organizes
+  end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   
@@ -19,5 +26,8 @@ Rails.application.routes.draw do
                registrations: 'registrations'
              }
 
+resources :users do
+    resources :trips
+end
 
 end
