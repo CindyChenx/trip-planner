@@ -2,7 +2,6 @@ class PageManager {
 
     constructor(container, adapter){
       this.container = container
-      this.adapter = new SignupAdaptor(adapter)
     }
 
     fetchAndRenderPageResources(){
