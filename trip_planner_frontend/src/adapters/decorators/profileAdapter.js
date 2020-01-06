@@ -13,4 +13,12 @@ class ProfileAdapter {
         return this.baseAdapter.headers
     }
     
+    async getTrips(){
+        const res = await fetch(`${this.baseURL}/trips`, {
+            headers: this.headers
+        })
+        await this.baseAdapter.checkStatus(res)
+        return await res.json()
+    }
+
 }

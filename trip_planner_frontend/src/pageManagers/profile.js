@@ -9,6 +9,15 @@ class ProfilePage extends PageManager {
         return null
     }
 
+    async fetchAndRenderPageResources(){
+        try{
+            const trips = await this.adapter.getTrips()
+            this.container.innerHTML = trips.map(trip => trip.country).join(' ')
+        } catch(err) {
+            this.handleError(err)
+        }
+    }
+
     get staticHTML(){
         return(`
             <h1>Your Profile Page!</h1>

@@ -6,7 +6,7 @@ class BaseAdapter {
     }
 
     get headers(){
-        const baseHeaders = {
+        let baseHeaders = {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         }
@@ -16,9 +16,22 @@ class BaseAdapter {
         return baseHeaders
     }
 
-    checkStatus(res){
-        if(res.status < 200 || res.status > 299){
-            throw new Error(res.status)
+    async checkStatus(res){
+        if(res.status == 401){
+            this.token = null
+            const msg = await res.json()
+            throw {
+                type: "Authorization Error",
+                msg: msg.error
+            }
+        }else if(res.status < 200 || res.status > 299){
+            const msg = await res.json()
+            let errorMsg = msg.error.detail
+            if(!errorMsg) { errorMsg = msg.error }
+            throw {
+                type: "Fetch Error",
+                msg: errorMsg
+            }
         }
     }
 

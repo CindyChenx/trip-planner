@@ -19,7 +19,7 @@ class LoginAdapter {
             headers: this.headers,
             body: JSON.stringify(params)
         })
-        this.baseAdapter.checkStatus(res)
+        await this.baseAdapter.checkStatus(res)
         this.baseAdapter.token = res.headers.get('authorization').split(' ')[1] // 0 is bearer 1 is token
         // console.log(this.baseAdapter.token)
     }
