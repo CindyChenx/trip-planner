@@ -11,13 +11,19 @@ class LoginPage extends PageManager {
         this.form.addEventListener('submit', this.handleSubmit.bind(this))
     }
 
-    handleSubmit(e){
+    async handleSubmit(e){
         e.preventDefault()
         const [email, password] = Array.from(e.target.querySelectorAll('input')).map(input => input.value)
         const params = {
             user: {email, password}
         }
-        this.adapter.login(params)
+
+        try{
+            await this.adapter.login(params)
+            this.redirect('profile')
+        }catch(err){
+            alert(err)
+        }
     }
 
     get staticHTML(){
