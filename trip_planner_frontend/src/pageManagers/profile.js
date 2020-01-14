@@ -11,22 +11,35 @@ class ProfilePage extends PageManager {
     }
 
     profileBindingsAndEventListeners(){
+        //edit
         const tripList = this.container.querySelector('ul')
         tripList.addEventListener('click', this.handleTripClick.bind(this))
-        // const addTrip = this.container.querySelector('button')
-        // addTrip.addEventListener('click', this.handleAddTripClick.bind(this))
+
+        //create
+        const createButton = this.container.querySelector('button')
+        createButton.addEventListener('click', this.handleAddTripClick.bind(this))
     }
 
-    dogBindingsAndEventListeners(){
+    tripBindingsAndEventListeners(){
         const editButton = this.container.querySelector('button')
         editButton.addEventListener('click', this.formalizeTrip.bind(this))
-    }
 
+        const deleteButton = this.container.querySelector('button#delete-id')
+        deleteButton.addEventListener('click', this.handleDeleteTripClick.bind(this))
+    }
+  
     tripFormBindingsAndEventListeners(){
         const form = this.container.querySelector('form')
         form.addEventListener('submit', this.handleUpdateTrip.bind(this))
     }
     
+    ///// create
+    tripCreateBindingsAndEventListeners(){
+        const form = this.container.querySelector('form')
+        form.addEventListener('submit', this.handleCreateTrip.bind(this))
+    }
+
+    // EDIT
     handleTripClick(e){
         if(e.target.tagName === "A"){
             const tripId = e.target.dataset.id 
@@ -35,19 +48,6 @@ class ProfilePage extends PageManager {
         }
     }
 
-    // async handleAddTripClick(e){
-    //     e.preventDefault()
-    //     this.container.innerHTML = trip.formHTML
-
-    //     const [id, country, length, price] = Array.from(e.target.querySelectorAll('input')).map(i => i.value)
-    //     const description = e.target.querySelector('textarea').value 
-    //     const params = {country, length, price, description, id}
-
-    //     const originTrip = new Trip({id, country, length, price, description})
-
-
-    // }
-    
     formalizeTrip(e){
         const id = e.target.dataset.id 
         const trip = this.user.trips.find(t => t.id == id)
@@ -61,6 +61,23 @@ class ProfilePage extends PageManager {
             })
         }
     }
+
+    // CREATE
+    handleAddTripClick(e){
+        e.preventDefault()
+        let newForm = document.createElement('div')
+        newForm.innerHTML = Trip.formHTML()
+        this.container.appendChild(newForm)
+        this.tripCreateBindingsAndEventListeners()
+    }
+
+    // DELETE
+    handleDeleteTripClick(e){
+        e.preventDefault()
+        const id = e.target.dataset.id
+        this.handleDeleteTrip(id)
+    }
+    
     
     async handleUpdateTrip(e){
         e.preventDefault()
@@ -83,6 +100,31 @@ class ProfilePage extends PageManager {
             trip.price = originTrip.price
             trip.description = originTrip.description
             this.renderTrip(trip)
+            this.handleError(err)
+        }
+    }
+
+    async handleCreateTrip(e){
+        e.preventDefault()
+        const [country, length, price] = Array.from(e.target.querySelectorAll('input')).map(i => i.value)
+        const description = e.target.querySelector('textarea').value 
+        const params = {country, length, price, description}
+        // console.log(params)
+        let trips = this.user.trips 
+        // console.log(trips)
+        try{
+            const newTrip = await this.adapter.createTrip(params)
+            this.redirect('profile')
+        } catch(err){
+            this.handleError(err)
+        }
+    }
+
+    async handleDeleteTrip(id){
+        try{
+            const currenTrip = await this.adapter.deleteTrip(id)
+            this.redirect('profile')
+        } catch(err){
             this.handleError(err)
         }
     }
@@ -111,7 +153,7 @@ class ProfilePage extends PageManager {
     renderTrip(trip){
         if(trip){
             this.container.innerHTML = trip.showHTML
-            this.dogBindingsAndEventListeners()
+            this.tripBindingsAndEventListeners()
         } else {
             this.handleError({
                 type: "404 not found",

@@ -17,7 +17,7 @@ class User {
             <ul>
                 ${this.trips.map(t => t.liAndLinkHTML).join('')}
             </ul>
-            <button>Add New Trip</button>
+            <button id="add-new-trip">Add New Trip</button>
         `)
     }
 }

@@ -18,7 +18,9 @@ class Navbar extends PageManager {
             e.preventDefault()
             if (e.target.id !== 'logout-link'){
                 const route = e.target.id.split('-')[0]
-                if (route !== this.currentPage()) {this.redirect(route)}
+                // console.log(route)
+                this.redirect(route)
+                // if (route !== this.currentPage()) {this.redirect(route)}
             } else {
                 this.adapter.token = null
                 this.redirect('welcome')

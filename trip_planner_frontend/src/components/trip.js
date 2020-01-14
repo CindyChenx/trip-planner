@@ -29,11 +29,12 @@ class Trip {
                 <textarea class="form-control" id="description" rows="3">${trip ? trip.description : ''}</textarea>
             </div>
         </div>
-       <button type="submit" class="btn btn-primary">${trip ? 'Update' : 'Create'} Trip</button>
-    </form>
+        <button type="submit" class="btn btn-primary">${trip ? 'Update' : 'Create'} Trip</button>
+        </form>
         `)
     }
-
+    // ${trip ? '<button type="submit" class="btn btn-primary" id="update-button"> Update Trip </button> <button type="submit" class="btn btn-primary" id="delete-button"> Delete Trip </button>' : '<button type="submit" class="btn btn-primary" id="create-button"> Create Trip </button>'}
+    
     constructor(trip){
         const {id, country, length, price, description} = trip
         this.id = id
@@ -53,12 +54,11 @@ class Trip {
             <h3>Length: ${this.length}</h3>
             <h3>Price: ${this.price}</h3>
             <p>Description: \n${this.description? this.description : "None"}</p>
-            <button data-id=${this.id} id="edit-id">Edit</button>
+            <button data-id=${this.id} id="edit-id">Edit</button> <button data-id=${this.id} id="delete-id">Delete</button>
         `)
     }
 
-
     get liAndLinkHTML(){
-        return `<li><a href="#" data-id="${this.id}">${this.country} - ${this.length}</a></li>`
+        return `<li><a href="#" data-id="${this.id}">${this.country} - ${this.length} day(s)</a></li>`
     }
 }
