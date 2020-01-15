@@ -44,12 +44,6 @@ class Navbar extends PageManager {
                         <a class="nav-link" href="#" id="profile-link">Profile<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" id="organize-link">Organize</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" id="companies-link">Companies</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" id="logout-link" href="#">Logout</a>
                     </li>
                     </ul>

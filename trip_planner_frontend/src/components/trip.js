@@ -50,9 +50,10 @@ class Trip {
 
     get showHTML(){
         return (`
-            <h2>${this.country}</h2>
-            <h3>Length: ${this.length}</h3>
-            <h3>Price: ${this.price}</h3>
+            <h1>Plan Your Trip</h1>
+            <h4>Country: ${this.country}</h2>
+            <h4>Length: ${this.length}</h3>
+            <h4>Price: ${this.price}</h3>
             <p>Description: \n${this.description? this.description : "None"}</p>
             <button data-id=${this.id} id="edit-id">Edit</button> <button data-id=${this.id} id="delete-id">Delete</button>
         `)

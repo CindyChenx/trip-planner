@@ -63,6 +63,7 @@ class ProfileAdapter {
         return await res.json()
     }
 
+    ///// delete
     async deleteTrip(id){
         const url = `${this.baseURL}/trips/${id}`
         const res = await fetch(url, {
